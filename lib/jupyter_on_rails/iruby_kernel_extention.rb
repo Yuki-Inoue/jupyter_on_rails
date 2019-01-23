@@ -5,10 +5,13 @@ module JupyterOnRails
     end
 
     def run
-      root = ::APP_PATH
+      original = Dir.pwd
+      root = IRubyKernelExtention.root
+      Dir.chdir root
       app_file = File.expand_path('config/application.rb', root)
       require app_file
       Rails.application.require_environment!
+      Dir.chdir original
       super
     end
   end
