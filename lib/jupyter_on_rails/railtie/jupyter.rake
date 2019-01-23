@@ -6,15 +6,16 @@ namespace :jupyter do
   task :notebook do
     root = Rails.root
     ipython_dir = ENV['IPYTHONDIR'] || root / '.ipython'
+    ipython_dir = File.absolute_path(ipython_dir.to_s)
 
-    sh "bundle exec iruby register --force --ipython-dir=#{Shellwords.shellescape(ipython_dir.to_s)}",
-       chdir: root
+    sh "bundle exec iruby register --force --ipython-dir=#{Shellwords.shellescape(ipython_dir.to_s)}"
 
+    sh "rm -rf #{Shellwords.shellescape(ipython_dir.to_s)}/kernels/rails"
     sh "cp -r #{Shellwords.shellescape(ipython_dir.to_s)}/kernels/ruby #{Shellwords.shellescape(ipython_dir.to_s)}/kernels/rails"
 
     kernel_file = File.expand_path('kernels/rails/kernel.json', ipython_dir.to_s)
     kernel_h = JSON.parse(File.read(kernel_file))
-    kernel_h['argv'] << File.expand_path('boot.rb', __dir__)
+    kernel_h['argv'] << File.expand_path('../boot.rb', __dir__)
     kernel_h['display_name'] = "#{Rails.application.class.parent} (rails #{Rails.version})"
     kernel_h['env'] ||= {}
     kernel_h['env']['RAILS_ROOT'] = root.to_s

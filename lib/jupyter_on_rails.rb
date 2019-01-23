@@ -1,6 +1,7 @@
-require "jupyter_on_rails/version"
+require 'jupyter_on_rails/version'
 
 module JupyterOnRails
   class Error < StandardError; end
-  # Your code goes here...
 end
+
+require 'jupyter_on_rails/railtie' if defined?(Rails)
