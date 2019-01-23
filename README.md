@@ -38,7 +38,7 @@ gem 'jupyter_on_rails'
 # For sessions pick either:
 gem 'ffi-rzmq'
 # Or
-gem ''
+gem 'cztop'
 ```
 
 And then execute:
