@@ -10,7 +10,7 @@ Although it was already possible to run `jupyter` + `iruby` and `require app_ful
 it is a bit tiring to each time copy all the `require` statements.
 
 Moreover, since Rails Way works in keeping (generally) everything under the project directory,
-managing the jupyter system installed in user global area is again a bit awkward.
+managing the jupyter configuration installed in user global area (the iruby kernel register thing) is again a bit awkward.
 
 With this gem, these awkwardness is to solved by following instruments:
   * `rake jupyter:notebook` Railtie command which invokes jupyter at your project root, and
@@ -25,7 +25,7 @@ With this gem, these awkwardness is to solved by following instruments:
 
 * `jupyter` command must be somehow available.
   * Either
-    * `jupyter` command (pip global install), or
+    * `jupyter` command (pip global install, anaconda, etc), or
     * `pipenv run jupyter` command (managed by Pipfile at project root)
 
 ## Installation
@@ -54,6 +54,8 @@ Just execute:
 ```sh
 rake jupyter:notebook
 ```
+
+Eventually, you'll have jupyter opened, and the kernel being available.
 
 ## Development
 
