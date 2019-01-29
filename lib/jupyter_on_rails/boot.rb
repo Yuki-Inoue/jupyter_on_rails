@@ -7,8 +7,11 @@ require_relative 'iruby_kernel_extention'
 JupyterOnRails::IRubyKernelExtention.root = root
 
 require 'iruby'
-module IRuby
-  class Kernel
-    prepend JupyterOnRails::IRubyKernelExtention
-  end
+IRuby::Kernel.after_initialize do
+  original = Dir.pwd
+  Dir.chdir root
+  app_file = File.expand_path('config/application.rb', root)
+  require app_file
+  Rails.application.require_environment!
+  Dir.chdir original
 end
