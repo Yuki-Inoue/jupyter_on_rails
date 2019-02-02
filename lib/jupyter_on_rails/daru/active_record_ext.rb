@@ -6,7 +6,10 @@ module JupyterOnRails
       extend ::ActiveSupport::Concern
 
       included do
-        scope :to_df, -> { ::Daru::DataFrame.from_activerecord(self) }
+        scope :to_df, -> {
+          df = ::Daru::DataFrame.from_activerecord(self)
+          df.set_index(primary_key)
+        }
       end
     end
   end
