@@ -6,7 +6,7 @@ module JupyterOnRails
       extend ::ActiveSupport::Concern
 
       included do
-        scope :to_df, -> { Daru::DataFrame.from_activerecord(self) }
+        scope :to_df, -> { ::Daru::DataFrame.from_activerecord(self) }
       end
     end
   end
