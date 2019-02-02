@@ -8,7 +8,7 @@ module JupyterOnRails
       included do
         scope :to_df, -> {
           df = ::Daru::DataFrame.from_activerecord(self)
-          df.set_index(primary_key)
+          df.set_index(primary_key.intern)
         }
       end
     end
