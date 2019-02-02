@@ -1,4 +1,4 @@
-require 'activesupport/concern'
+require 'active_support/concern'
 
 module JupyterOnRails
   module Daru
