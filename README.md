@@ -58,6 +58,12 @@ rake jupyter:notebook
 Eventually, you'll have jupyter opened, and the kernel being available.
 
 
+### ApplicationRecord#to_df
+
+```ruby
+User.to_df # => Daru::DataFrame is returned
+```
+
 ## Development
 
 This is a railtie gem, so you'd probably want to do something like:
