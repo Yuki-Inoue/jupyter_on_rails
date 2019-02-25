@@ -64,6 +64,15 @@ Eventually, you'll have jupyter opened, and the kernel being available.
 User.to_df # => Daru::DataFrame is returned
 ```
 
+### Daru::DataFrame#write_model
+
+For each row, call `to_h` and pass it to `model.new`.
+And then, imports them using `model.import`.
+
+```ruby
+df.write_model(User)
+```
+
 ## Development
 
 This is a railtie gem, so you'd probably want to do something like:
