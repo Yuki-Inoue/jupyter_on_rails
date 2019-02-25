@@ -1,4 +1,4 @@
-require_relative 'daru/active_record_ext'
+# require_relative 'daru/active_record_ext'
 
 module JupyterOnRails
   class Railtie < ::Rails::Railtie
