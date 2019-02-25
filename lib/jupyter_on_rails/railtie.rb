@@ -5,13 +5,5 @@ module JupyterOnRails
     rake_tasks do
       load 'jupyter_on_rails/railtie/jupyter.rake'
     end
-
-    config.before_configuration do
-      if defined?(::Daru) && defined?(::ActiveRecord)
-        class ::ActiveRecord::Base
-          include ::JupyterOnRails::Daru::ActiveRecordExt
-        end
-      end
-    end
   end
 end
