@@ -30,7 +30,7 @@ module JupyterOnRails
             ret
           end
 
-          ::Daru::DataFrame.from_activerecord(datas)
+          ::Daru::DataFrame.new(datas)
         end
       end
     end
