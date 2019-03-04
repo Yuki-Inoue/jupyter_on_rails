@@ -8,6 +8,11 @@ module JupyterOnRails
     end
 
     config.before_configuration do
+      begin
+        require 'daru'
+      rescue LoadError
+      end
+
       if defined?(::Daru) && defined?(::ActiveRecord)
         class ::ActiveRecord::Base
           include ::JupyterOnRails::Daru::ActiveRecordExt
