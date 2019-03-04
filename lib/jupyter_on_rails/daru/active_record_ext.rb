@@ -5,8 +5,10 @@ module JupyterOnRails
     module ActiveRecordExt
       extend ::ActiveSupport::Concern
 
-      included do
-        scope :to_df, -> { ::Daru::DataFrame.from_activerecord(self) }
+      class_methods do
+        def to_df
+          ::Daru::DataFrame.from_activerecord(all)
+        end
       end
     end
   end
