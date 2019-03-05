@@ -1,6 +1,6 @@
 # JupyterOnRails
 
-Rails is loaded on jupyter dead easy.
+Integrate Rails and Jupyter
 
 ![Alt text](the_screenshot.png?raw=true "Title")
 
