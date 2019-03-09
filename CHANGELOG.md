@@ -1,5 +1,8 @@
 # Change Log
 
+## [v0.5.2](https://github.com/Yuki-Inoue/jupyter_on_rails/tree/v0.5.2) (2019-03-09)
+[Full Changelog](https://github.com/Yuki-Inoue/jupyter_on_rails/compare/v0.5.1...v0.5.2)
+
 ## [v0.5.1](https://github.com/Yuki-Inoue/jupyter_on_rails/tree/v0.5.1) (2019-03-09)
 [Full Changelog](https://github.com/Yuki-Inoue/jupyter_on_rails/compare/v0.5.0...v0.5.1)
 
