@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["inoueyuworks@gmail.com"]
 
   spec.summary       = %q{Integrate jupyter into rails}
-  spec.description   = %q{`rails jupyter:notebook` to open jupyter with rails app kernel of your project.}
+  spec.description   = %q{Utilities for integrating jupyter and rails.}
   spec.homepage      = "https://github.com/Yuki-Inoue/jupyter_on_rails"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
