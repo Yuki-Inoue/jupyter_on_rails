@@ -3,7 +3,7 @@
 module JupyterOnRails
   module IRubyKernelExtention
     class << self
-      attr_accessor :root
+      attr_accessor :root, :sandbox
     end
 
     def run
@@ -14,6 +14,15 @@ module JupyterOnRails
       require app_file
       Rails.application.require_environment!
       Dir.chdir original
+
+      if IRubyKernelExtention.sandbox
+        ActiveRecord::Base.connection.begin_transaction(joinable: false)
+
+        at_exit do
+          ActiveRecord::Base.connection.rollback_transaction
+        end
+      end
+
       super
     end
   end
