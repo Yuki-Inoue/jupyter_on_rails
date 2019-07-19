@@ -7,6 +7,23 @@ module JupyterOnRails
     end
 
     def run
+      # Load Daru extensions
+      begin
+        require 'daru'
+        require 'active_record'
+      rescue LoadError
+      else
+        require 'jupyter_on_rails/daru/active_record_ext'
+        require 'jupyter_on_rails/daru/data_frame_ext'
+
+        ::ActiveRecord::Base.instance_eval do
+          include ::JupyterOnRails::Daru::ActiveRecordExt
+        end
+        ::Daru::DataFrame.instance_eval do
+          include ::JupyterOnRails::Daru::DataFrameExt
+        end
+      end
+
       original = Dir.pwd
       root = IRubyKernelExtention.root
       Dir.chdir root

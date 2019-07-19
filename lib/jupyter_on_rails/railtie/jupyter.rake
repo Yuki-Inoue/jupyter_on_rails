@@ -6,7 +6,17 @@ require 'ostruct'
 
 namespace :jupyter do
   desc 'start jupyter notebook'
-  task :notebook do
+  task :notebook => :install_kernels do
+    ipython_dir = ENV['IPYTHONDIR'] || Rails.root / '.ipython'
+
+    env = { 'JUPYTER_DATA_DIR' => ipython_dir.to_s }
+    commands = %w[jupyter notebook]
+    commands = %w[pipenv run] + commands if (Rails.root / 'Pipfile').exist?
+    Process.exec(env, *commands)
+  end
+
+  desc 'Install the kernel'
+  task :install_kernels do
     root = Rails.root
     ipython_dir = ENV['JUPYTER_DATA_DIR'] || ENV['IPYTHONDIR'] || root / '.ipython'
     ipython_dir = File.absolute_path(ipython_dir.to_s)
@@ -30,10 +40,5 @@ namespace :jupyter do
 
       File.write(kernel_file, JSON.dump(kernel_h))
     end
-
-    env = { 'JUPYTER_DATA_DIR' => ipython_dir.to_s }
-    commands = %w[jupyter notebook]
-    commands = %w[pipenv run] + commands if (root / 'Pipfile').exist?
-    Process.exec(env, *commands)
   end
 end
