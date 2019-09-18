@@ -67,7 +67,8 @@ User.to_df # => Daru::DataFrame is returned
 ### Daru::DataFrame#write_model
 
 For each row, call `to_h` and pass it to `model.new`.
-And then, imports them using `model.import`.
+And then, imports them using `model.insert_all` on Rails >= 6, or `model.import` (requires adding
+`activerecord-import` to your `Gemfile`).
 
 ```ruby
 df.write_model(User)

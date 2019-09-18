@@ -45,6 +45,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'iruby'
   spec.add_dependency 'railties'
 
-  spec.add_dependency 'activerecord-import'
   spec.add_dependency 'daru'
 end
