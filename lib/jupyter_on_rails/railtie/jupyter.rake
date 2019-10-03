@@ -22,7 +22,7 @@ namespace :jupyter do
 
     File.write(kernel_file, JSON.dump(kernel_h))
 
-    env = { 'IPYTHONDIR' => ipython_dir.to_s }
+    env = { 'JUPYTER_DATA_DIR' => ipython_dir.to_s }
     commands = %w[jupyter notebook]
     commands = %w[pipenv run] + commands if (root / 'Pipfile').exist?
     Process.exec(env, *commands)
