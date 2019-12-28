@@ -5,10 +5,10 @@ namespace :jupyter do
   desc 'start jupyter notebook'
   task :notebook do
     root = Rails.root
-    ipython_dir = ENV['IPYTHONDIR'] || root / '.ipython'
+    ipython_dir = ENV['JUPYTER_DATA_DIR'] || ENV['IPYTHONDIR'] || root / '.ipython'
     ipython_dir = File.absolute_path(ipython_dir.to_s)
 
-    sh "bundle exec iruby register --force --ipython-dir=#{Shellwords.shellescape(ipython_dir.to_s)}"
+    sh "bundle exec iruby register --force JUPYTER_DATA_DIR=#{Shellwords.shellescape(ipython_dir.to_s)}"
 
     sh "rm -rf #{Shellwords.shellescape(ipython_dir.to_s)}/kernels/rails"
     sh "cp -r #{Shellwords.shellescape(ipython_dir.to_s)}/kernels/ruby #{Shellwords.shellescape(ipython_dir.to_s)}/kernels/rails"
@@ -22,7 +22,7 @@ namespace :jupyter do
 
     File.write(kernel_file, JSON.dump(kernel_h))
 
-    env = { 'IPYTHONDIR' => ipython_dir.to_s }
+    env = { 'JUPYTER_DATA_DIR' => ipython_dir.to_s }
     commands = %w[jupyter notebook]
     commands = %w[pipenv run] + commands if (root / 'Pipfile').exist?
     Process.exec(env, *commands)
