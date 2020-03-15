@@ -5,6 +5,7 @@ module JupyterOnRails
     module ActiveRecordExt
       extend ::ActiveSupport::Concern
 
+      # Rails 4.0 support
       unless respond_to?(:class_methods)
         def self.class_methods(&class_methods_module_definition)
           mod = const_defined?(:ClassMethods, false) ?
