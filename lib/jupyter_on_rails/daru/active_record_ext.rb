@@ -45,6 +45,10 @@ module JupyterOnRails
           ::Daru::DataFrame.new(datas)
         end
       end
+
+      def to_df
+        ::Daru::DataFrame.new([attributes])
+      end
     end
   end
 end
