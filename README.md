@@ -58,10 +58,11 @@ rake jupyter:notebook
 Eventually, you'll have jupyter opened, and the kernel being available.
 
 
-### ApplicationRecord#to_df
+### ApplicationRecord.to_df/#to_df
 
 ```ruby
 User.to_df # => Daru::DataFrame is returned
+user.to_df # => Daru::DataFrame for single record
 ```
 
 ### Daru::DataFrame#write_model
