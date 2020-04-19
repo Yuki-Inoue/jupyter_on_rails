@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'jupyter_on_rails/version'
 
 module JupyterOnRails

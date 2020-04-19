@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 root = ENV.fetch('RAILS_ROOT')
 
 boot_file = File.expand_path('config/boot.rb', root)
