@@ -15,16 +15,13 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.7.1
+    # https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
     - uses: actions/cache@v1
-      env:
-        cache-name: cache-node-modules
       with:
         path: vendor/bundle
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Gemfile.lock') }}
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          ${{ runner.os }}-gems-
     - name: Build and test with Rake
       run: |
         gem install bundler
