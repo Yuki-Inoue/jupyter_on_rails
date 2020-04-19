@@ -32,9 +32,7 @@ module JupyterOnRails
                 assocs = record.send(assoc)
                 next [attrs] unless assocs.present?
 
-                unless assocs.is_a?(ActiveRecord::Associations::CollectionProxy)
-                  assocs = [assocs]
-                end
+                assocs = [assocs] unless assocs.is_a?(ActiveRecord::Associations::CollectionProxy)
                 assocs.map(&:attributes).map do |assoc_attrs|
                   new_attrs = assoc_attrs.transform_keys do |key|
                     "#{assoc}.#{key}".to_sym
