@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'daru/active_record_ext'
 require_relative 'daru/data_frame_ext'
 
