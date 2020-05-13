@@ -6,7 +6,7 @@ require 'ostruct'
 
 namespace :jupyter do
   desc 'start jupyter notebook'
-  task :notebook => :install_kernels do
+  task notebook: :install_kernels do
     ipython_dir = ENV['IPYTHONDIR'] || Rails.root / '.ipython'
 
     env = { 'JUPYTER_DATA_DIR' => ipython_dir.to_s }
@@ -25,7 +25,7 @@ namespace :jupyter do
 
     [
       OpenStruct.new(kernel_name: 'rails',         boot_file: '../boot.rb',         name_ext: ''),
-      OpenStruct.new(kernel_name: 'rails-sandbox', boot_file: '../boot_sandbox.rb', name_ext: ', sandbox'),
+      OpenStruct.new(kernel_name: 'rails-sandbox', boot_file: '../boot_sandbox.rb', name_ext: ', sandbox')
     ].each do |cfg|
       sh "rm -rf #{Shellwords.shellescape(ipython_dir.to_s)}/kernels/#{cfg.kernel_name}"
 

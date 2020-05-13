@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module JupyterOnRails
   class Kernel
     def initialize(sandbox: false)
