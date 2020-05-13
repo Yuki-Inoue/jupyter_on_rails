@@ -4,6 +4,7 @@ require 'shellwords'
 require 'json'
 require 'ostruct'
 
+# rubocop:disable Metrics/BlockLength
 namespace :jupyter do
   desc 'start jupyter notebook'
   task notebook: :install_kernels do
@@ -42,3 +43,4 @@ namespace :jupyter do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
