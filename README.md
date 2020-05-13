@@ -14,7 +14,10 @@ managing the jupyter configuration installed in user global area (the iruby kern
 
 With this gem, these awkwardness is to solved by following instruments:
   * `rake jupyter:notebook` Railtie command which invokes jupyter at your project root, and
-  * The rails kernel dynamically defined by the rake task which automatically loads your Rails application.
+  * This rake task automatically creates two `iruby` kernels to load your application in Jupyter:
+    * one for normal operation
+    * one for sandbox mode in which everything you do is wrapped in a database transaction that is rolled back when the
+      kernel exits (equivalent to `rails console --sandbox`)
 
 
 ## Prerequisites
