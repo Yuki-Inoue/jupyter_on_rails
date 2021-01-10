@@ -28,8 +28,8 @@ module JupyterOnRails
       IRuby::Kernel.instance_eval { prepend JupyterOnRails::IRubyKernelExtention }
       IRuby::Display::Registry.instance_eval do
         match do |obj|
-          ActiveRecord::Relation === obj ||
-            ::Class === obj && obj < ActiveRecord::Base && !obj.abstract_class
+          obj.is_a?(ActiveRecord::Relation) ||
+            obj.is_a?(::Class) && obj < ActiveRecord::Base && !obj.abstract_class
         end
         priority 100
         format 'text/html' do |obj|
