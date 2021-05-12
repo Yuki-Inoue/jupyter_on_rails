@@ -21,6 +21,12 @@ namespace :jupyter do
     root = Rails.root
     ipython_dir = ENV['JUPYTER_DATA_DIR'] || ENV['IPYTHONDIR'] || root / '.ipython'
     ipython_dir = File.absolute_path(ipython_dir.to_s)
+    application_module =
+      if Rails::VERSION::MAJOR >= 6
+        Rails.application.class.module_parent
+      else
+        Rails.application.class.parent
+      end
 
     sh "JUPYTER_DATA_DIR=#{Shellwords.shellescape(ipython_dir.to_s)} bundle exec iruby register --force"
 
@@ -35,7 +41,7 @@ namespace :jupyter do
       kernel_file = File.expand_path("kernels/#{cfg.kernel_name}/kernel.json", ipython_dir.to_s)
       kernel_h = JSON.parse(File.read(kernel_file))
       kernel_h['argv'] << File.expand_path(cfg.boot_file, __dir__)
-      kernel_h['display_name'] = "#{Rails.application.class.parent} (rails #{Rails.version}#{cfg.name_ext})"
+      kernel_h['display_name'] = "#{application_module} (rails #{Rails.version}#{cfg.name_ext})"
       kernel_h['env'] ||= {}
       kernel_h['env']['RAILS_ROOT'] = root.to_s
 
