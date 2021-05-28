@@ -20,12 +20,13 @@ module JupyterOnRails
     end
 
     def load_extensions
-      require_relative 'iruby_kernel_extention'
-      JupyterOnRails::IRubyKernelExtention.root = @root
-      JupyterOnRails::IRubyKernelExtention.sandbox = @sandbox
+      require_relative 'initializer'
 
       require 'iruby'
-      IRuby::Kernel.instance_eval { prepend JupyterOnRails::IRubyKernelExtention }
+      IRuby::Kernel.events.register(:initialized) do |_kernel|
+        JupyterOnRails::Initializer.run(root: @root, sandbox: @sandbox)
+      end
+
       IRuby::Display::Registry.instance_eval do
         match do |obj|
           obj.is_a?(ActiveRecord::Relation) ||
