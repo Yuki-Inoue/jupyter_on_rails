@@ -27,12 +27,11 @@ module JupyterOnRails
       Rails.application.require_environment!
       Dir.chdir original
 
-      if sandbox
-        ActiveRecord::Base.connection.begin_transaction(joinable: false)
+      return unless sandbox
 
-        at_exit do
-          ActiveRecord::Base.connection.rollback_transaction
-        end
+      ActiveRecord::Base.connection.begin_transaction(joinable: false)
+      at_exit do
+        ActiveRecord::Base.connection.rollback_transaction
       end
     end
   end
