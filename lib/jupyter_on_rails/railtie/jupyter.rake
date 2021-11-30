@@ -12,7 +12,13 @@ namespace :jupyter do
 
     env = { 'JUPYTER_DATA_DIR' => ipython_dir.to_s }
     commands = %w[jupyter notebook]
-    commands = %w[pipenv run] + commands if (Rails.root / 'Pipfile').exist?
+
+    if (Rails.root / 'pyproject.toml').exist?
+      commands = %w[poetry run] + commands
+    elsif (Rails.root / 'Pipfile').exist?
+      commands = %w[pipenv run] + commands
+    end
+
     Process.exec(env, *commands)
   end
 
