@@ -6,7 +6,6 @@ require 'ostruct'
 
 # rubocop:disable Metrics/BlockLength
 namespace :jupyter do
-
   exec_jupyter_command = lambda do |subcomand|
     ipython_dir = ENV['IPYTHONDIR'] || Rails.root / '.ipython'
 
