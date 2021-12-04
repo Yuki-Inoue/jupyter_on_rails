@@ -6,12 +6,12 @@ require 'ostruct'
 
 # rubocop:disable Metrics/BlockLength
 namespace :jupyter do
-  desc 'start jupyter notebook'
-  task notebook: :install_kernels do
+
+  exec_jupyter_command = lambda do |subcomand|
     ipython_dir = ENV['IPYTHONDIR'] || Rails.root / '.ipython'
 
     env = { 'JUPYTER_DATA_DIR' => ipython_dir.to_s }
-    commands = %w[jupyter notebook]
+    commands = ['jupyter', subcomand]
 
     if (Rails.root / 'pyproject.toml').exist?
       commands = %w[poetry run] + commands
@@ -20,6 +20,16 @@ namespace :jupyter do
     end
 
     Process.exec(env, *commands)
+  end
+
+  desc 'start jupyter notebook'
+  task notebook: :install_kernels do
+    instance_exec('notebook', &exec_jupyter_command)
+  end
+
+  desc 'start jupyter lab'
+  task lab: :install_kernels do
+    instance_exec('lab', &exec_jupyter_command)
   end
 
   desc 'Install the kernel'
