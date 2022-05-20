@@ -3,20 +3,34 @@
 module JupyterOnRails
   module Initializer
     def self.run(root:, sandbox:)
-      # Load Daru extensions
-      begin
+      require 'active_support/lazy_load_hooks'
+
+      ActiveSupport.on_load(:active_record) do
+        # Load Daru extensions
+
         require 'daru'
-        require 'active_record'
       rescue LoadError
       else
         require 'jupyter_on_rails/daru/active_record_ext'
         require 'jupyter_on_rails/daru/data_frame_ext'
 
-        ::ActiveRecord::Base.instance_eval do
-          include ::JupyterOnRails::Daru::ActiveRecordExt
-        end
+        include ::JupyterOnRails::Daru::ActiveRecordExt
+
         ::Daru::DataFrame.instance_eval do
           include ::JupyterOnRails::Daru::DataFrameExt
+        end
+
+        IRuby::Display::Registry.instance_eval do
+          match do |obj|
+            obj.is_a?(ActiveRecord::Relation) ||
+              obj.is_a?(::Class) && obj < ActiveRecord::Base && !obj.abstract_class
+          end
+          priority 100
+          format 'text/html' do |obj|
+            n = 10
+            puts "finding top #{n}"
+            obj.limit(n).to_df.to_html
+          end
         end
       end
 

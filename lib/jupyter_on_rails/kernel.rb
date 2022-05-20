@@ -26,19 +26,6 @@ module JupyterOnRails
       IRuby::Kernel.events.register(:initialized) do |_kernel|
         JupyterOnRails::Initializer.run(root: @root, sandbox: @sandbox)
       end
-
-      IRuby::Display::Registry.instance_eval do
-        match do |obj|
-          obj.is_a?(ActiveRecord::Relation) ||
-            obj.is_a?(::Class) && obj < ActiveRecord::Base && !obj.abstract_class
-        end
-        priority 100
-        format 'text/html' do |obj|
-          n = 10
-          puts "finding top #{n}"
-          obj.limit(n).to_df.to_html
-        end
-      end
     end
   end
 end
