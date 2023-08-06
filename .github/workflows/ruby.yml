@@ -14,7 +14,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7.2
+        ruby-version: 3.2.2
         bundler-cache: true
     # https://github.com/actions/cache/blob/master/examples.md#ruby---bundler
     - uses: actions/cache@v1
